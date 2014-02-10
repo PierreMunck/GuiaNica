@@ -1,0 +1,1 @@
+{"item":{"route":"div[id=evs_container] > div[class=eventinside]","type":"subcontent","param":{"title":{"route":"span[class=title]","type":"text"},"img":{"route":"img[class=ev_img]","type":"atribute","param":{"value":"src"}},"fecha":{"route":"div[class=evnt-date]","type":"text"},"lugar":{"route":"span[class=subtitle]","type":"text"}}}}

@@ -1,12 +1,10 @@
 <?php
-include_once('lib/parser/Url.php');
+include_once('lib/parser/Rss.php');
 
-$parser = new ParserUrl();
-
-//$parser->setUrl("http://experiencias.folkano.com/rss/");
-$parser->setUrl("http://experiencias.folkano.com/flkn/exposicion-huellas-spuren/");
-
+$parser = new Parserurl();
+$parser->setUrl("http://experiencias.folkano.com");
 $parser->parse();
-
-$parser->getInfo();
+$parser->setDescription(__DIR__."/desc/experiencias_folkano_com.desc");
+$result = $parser->getInfo();
+print_r($result);
 ?>
