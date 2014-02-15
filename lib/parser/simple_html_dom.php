@@ -9,7 +9,7 @@
  */
 
 include_once 'simple_html_dom_node.php';
- 
+
 class simple_html_dom
 {
     public $root = null;
@@ -176,7 +176,7 @@ class simple_html_dom
     protected function prepare($str, $lowercase=true, $stripRN=true, $defaultBRText=DEFAULT_BR_TEXT, $defaultSpanText=DEFAULT_SPAN_TEXT)
     {
         $this->clear();
-
+        mb_internal_encoding("UTF-8");
         // set the length of content before we do anything to it.
         $this->size = strlen($str);
         // Save the original size of the html that we got in.  It might be useful to someone.

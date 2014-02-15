@@ -31,6 +31,7 @@ class Parser {
     protected $content = NULL;
     protected $dom = NULL;
     protected $description = NULL;
+    protected $result = NULL;
     
     public function setUrl($url)
     {
@@ -55,6 +56,10 @@ class Parser {
             $this->description = json_decode($description,true);
             fclose($fp);
         }
+        if($this->description != NULL){
+            return TRUE;
+        }
+        return FALSE;
     }
     
     public function getDescription(){
@@ -100,7 +105,6 @@ class Parser {
             if(!method_exists ( $this , $method )){
                 return NULL;
             }
-            print_r($method);
             $find = $obj->find($route[0]);
             if( sizeof($find) > 1){
                 $result = array();
@@ -110,7 +114,6 @@ class Parser {
                 }
                 $item = 0;
                 foreach ($find as $findValue) {
-                    print_r($method);
                     $value = NULL;
                     if(isset($description["param"])){
                        $value = $this->$method($findValue,$description["param"]);
@@ -156,15 +159,15 @@ class Parser {
     
     
     public function getInfo(){
-        $result = array();
+        $this->result = array();
         if(!is_array($this->description)){
             return NULL;
         }
         foreach ($this->description as $key => $info) {
             $route = explode(">", $info["route"]);
-            $result[$key] = $this->getRecursiveInfo($this->dom,$route,$info);
+            $this->result[$key] = $this->getRecursiveInfo($this->dom,$route,$info);
         }
-        return $result;
+        return $this->result;
     }
     
     protected function getTextInfoVal($obj){
@@ -187,13 +190,10 @@ class Parser {
     }
     
     protected function getSubcontentInfoVal($obj,$param){
-        print_r($param);
         foreach ($param as $key => $info) {
             $route = explode(">", $info["route"]);
-            
             $result[$key] = $this->getRecursiveInfo($obj,$route,$info);
         }
-        print_r($result);
         return $result;
     }
     

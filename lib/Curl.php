@@ -76,6 +76,9 @@ class Curl {
     $defaultHeaders['agent']   = 'User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)';
     $defaultHeaders['cookie']    = $cookiePath.'/cookies/'.$n;
     $defaultHeaders['randDate']  = mktime(0, 0, 0, date('m'), date('d') - rand(3,26),date('Y'));
+    $defaultHeaders['httpHeader']  = array(
+        //'Content-type: text/xml;charset=UTF-8',
+    );
     
     $this->addHeader($defaultHeaders);
     
@@ -86,6 +89,7 @@ class Curl {
     $defaultOptions[CURLOPT_RETURNTRANSFER] = 1;
     $defaultOptions[CURLINFO_HEADER_OUT] = TRUE;
     $defaultOptions[CURLOPT_HEADER] = FALSE;
+    $defaultOptions[CURLOPT_ENCODING] = 'gzip';
     
     $this->addOption($defaultOptions);
     
@@ -225,10 +229,11 @@ class Curl {
     
     // Set the options
     curl_setopt ($this->ch, CURLOPT_URL,$url);
-    
+    curl_setopt ($this->ch, CURLOPT_HTTPHEADER,  $this->headers['httpHeader']);
     curl_setopt ($this->ch, CURLOPT_USERAGENT, $this->headers['agent']);
     curl_setopt ($this->ch, CURLOPT_COOKIEJAR,  $this->headers['cookie']);
     curl_setopt ($this->ch, CURLOPT_COOKIEFILE,  $this->headers['cookie']);
+    
     
     foreach ($this->options as $key => $value) {
       curl_setopt ($this->ch, $key, $value);

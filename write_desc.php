@@ -16,9 +16,16 @@ $file_name = __DIR__."/desc/".generateFileName("http://experiencias.folkano.com"
 
 $desc = array(
     "item" => array(
-        "route" => "evs_container > eventinside",
+        "route" => "div[id=evs_container] > div[class=eventinside]",
         "type" => "subcontent",
         "param" => array(
+            "id" => array(
+                "route" => "a[class=link]",
+                "type" => "atribute",
+                "param" => array(
+                    "value" => "href",
+                ),
+            ),
             "title" => array(
                 "route" => "span[class=title]",
                 "type" => "text",
@@ -38,6 +45,13 @@ $desc = array(
                 "route" => "span[class=subtitle]",
                 "type" => "text",
             ),
+            "read_more" => array(
+                "route" => "a[class=link]",
+                "type" => "atribute",
+                "param" => array(
+                    "value" => "href",
+                ),
+            ),
         ),
     ),
 );
@@ -48,4 +62,5 @@ $fp = fopen($file_name, 'w');
 fwrite($fp, json_encode($desc));
 fclose($fp);
 
+print_r(json_encode($desc));
 ?>

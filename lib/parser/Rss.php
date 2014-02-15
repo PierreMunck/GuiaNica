@@ -4,7 +4,6 @@ include_once 'lib/parser/Url.php';
 
 class ParserRss extends Parser{
 
-    private $result = NULL;
     private $stockFileDir = NULL;
     private $stockFileName = NULL;
     
